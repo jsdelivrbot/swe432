@@ -197,7 +197,17 @@ const intv = setInterval(()	=>	{
 let database = firebase.database();
 
 // Add a new song with post request
-app.post("/:artist/:albumname/:songname/", function (req, res) {
+app.post("/:trackID/:collection/:artistID/", function (req, res) {
+	database.ref('songs/' + req.params.trackID).set({
+		name: req.params.trackID,
+		artist: req.params.artistID,
+		collection: req.params.collection
+	});
+	res.send("Success");
+});
+
+// haven't done yet
+app.get("/:artist/:albumname/:songname/", function (req, res) {
 	database.ref('songs/' + req.params.songname).set({
 		name: req.params.songname,
 		artist: req.params.artist,
@@ -205,6 +215,13 @@ app.post("/:artist/:albumname/:songname/", function (req, res) {
 	});
 	res.send("Success");
 });
+
+// doesn't work yet
+app.delete("/:songname", function (req, res) {
+	database.ref.remove();
+	res.send("Success");
+});
+
 
 /*
 // Takes all songs from an artist and converts the time of each track to milliseconds
