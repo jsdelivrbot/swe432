@@ -198,7 +198,7 @@ let database = firebase.database();
 
 // Add a new song with post request
 app.post("/:trackID/:collection/:artistID/", function (req, res) {
-	database.ref('songs/' + req.params.trackID).set({
+	database.ref('artists/' + req.params.artistID + '/' + req.params.collection + '/' + 'songs/').set({
 		name: req.params.trackID,
 		artist: req.params.artistID,
 		collection: req.params.collection
@@ -207,7 +207,7 @@ app.post("/:trackID/:collection/:artistID/", function (req, res) {
 });
 
 // haven't done yet
-app.get("/:artist/:albumname/:songname/", function (req, res) {
+app.get("/:trackID", function (req, res) {
 	database.ref('songs/' + req.params.songname).set({
 		name: req.params.songname,
 		artist: req.params.artist,
@@ -219,6 +219,14 @@ app.get("/:artist/:albumname/:songname/", function (req, res) {
 // doesn't work yet
 app.delete("/:songname", function (req, res) {
 	database.ref.remove();
+	res.send("Success");
+});
+
+// Add a new song with post request
+app.post("/:playlist", function (req, res) {
+	database.ref('playlists/' + req.params.playlist).set({
+		name: req.params.playlist
+	});
 	res.send("Success");
 });
 
