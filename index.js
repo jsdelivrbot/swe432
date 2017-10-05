@@ -37,6 +37,7 @@ class ProcessData {
       artist: artist,
       collection: album
     });
+	return true;
   }
   //removes artists from database
   remove(artist){
@@ -44,8 +45,8 @@ class ProcessData {
   }
 
   updatePlay(playlist, track){
-    var playref = database.ref().child("playlists/" + playlist)
-    playref.update({track:track, no:tracknum});
+    var playref = database.ref().child("playlists/" + playlist);
+    playref.update({track:track, no:'5'});
   }
 }
 
@@ -72,11 +73,20 @@ app.get('/:artistID/:collection/', (req,res) => {
   });
 });
 
+//get songs from a playlist
+app.get('/:playlist', (req,res) => {
+  var ref = firebase.database().ref("playlists/" + req.params.playlist);
+  ref.once("value")
+  .then((snapshot) => {
+    //var album = snapshot.child(req.params.collection).val()
+    res.send(snapshot);
+  });
+});
 
 // Add a new song with post request
 app.post("/:artistID/:collection/:trackID/", function (req, res) {
-  processData.add(req.params.artistID, req.params.collection, req.params.trackID);
-  res.send("Success");
+  if (processData.add(req.params.artistID, req.params.collection, req.params.trackID))
+	  res.send("Success");
 });
 
 //deletes artist from database
@@ -88,9 +98,9 @@ app.delete("/artist/:artistID", function (req, res) {
 // sets a new playlist with post request
 app.post("/:playlist", function (req, res) {
 	database.ref('playlists/' + req.params.playlist).set({
-		playlist: req.params.playlist,
-    track: null,
-    tracknum: null
+		name: req.params.playlist,
+		track: null,
+		tracknum: 0
 	});
 	res.send("Success");
 });
