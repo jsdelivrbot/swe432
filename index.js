@@ -7,8 +7,6 @@ app.use(bodyParser.json());
 
 const firebase = require('firebase');
 
-
-
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyAoALAhnP3dK_KDJwiW5TZziLIRaPc55IU",
@@ -76,7 +74,7 @@ app.post("/:artistID/:collection/:trackID/", function (req, res) {
 });
 
 //deletes artist from database
-app.delete("/:artistID", function (req, res) {
+app.delete("/artist/:artistID", function (req, res) {
   processData.remove(req.params.artistID);
 	res.send("Success");
 });
@@ -84,11 +82,17 @@ app.delete("/:artistID", function (req, res) {
 // sets a new playlist with post request
 app.post("/:playlist", function (req, res) {
 	database.ref('playlists/' + req.params.playlist).set({
-		name: req.params.playlist
+		name: req.params.playlist,
+    songs: null
 	});
 	res.send("Success");
 });
 
+
+app.delete("/:playlist", (req, res) => {
+  database.ref().child("playlists/" + req.params.playlist).remove();
+  res.send("Success");
+});
 
 app.listen(process.env.PORT || 3000, function () {
 	console.log('App listening on port 3000!')
