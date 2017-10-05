@@ -29,7 +29,8 @@ class StoreData {
   }
 }
 class ProcessData {
-  //adds song
+
+  //adds songs
   add(artist, album, track){
     database.ref('artists/' + artist + '/' + album).push().set({
       name: track,
@@ -40,6 +41,11 @@ class ProcessData {
   //removes artists from database
   remove(artist){
     database.ref().child('artists/' + artist).remove();
+  }
+
+  updatePlay(playlist, track){
+    var playref = database.ref().child("playlists/" + playlist)
+    playref.update({track:track, no:tracknum});
   }
 }
 
@@ -82,13 +88,20 @@ app.delete("/artist/:artistID", function (req, res) {
 // sets a new playlist with post request
 app.post("/:playlist", function (req, res) {
 	database.ref('playlists/' + req.params.playlist).set({
-		name: req.params.playlist,
-    songs: null
+		playlist: req.params.playlist,
+    track: null,
+    tracknum: null
 	});
 	res.send("Success");
 });
 
+//update playlist
+app.put("/:playlist/:trackID", (req,res) => {
+  processData.updatePlay(req.params.playlist, req.params.trackID);
+  res.send("Success");
+});
 
+//delete playlist
 app.delete("/:playlist", (req, res) => {
   database.ref().child("playlists/" + req.params.playlist).remove();
   res.send("Success");
