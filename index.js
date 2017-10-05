@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 const firebase = require('firebase');
 
 
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyAoALAhnP3dK_KDJwiW5TZziLIRaPc55IU",
@@ -19,42 +20,75 @@ var config = {
 };
 firebase.initializeApp(config);
 
+
+class StoreData {
+  getTopTen(){
+    fetch("https://rss.itunes.apple.com/api/v1/us/apple-music/hot-tracks/all/10/explicit.json")
+    .then(res => {return res.json()})
+    .then(json => {
+      topten = json.feed.results;
+    });
+  }
+}
+class ProcessData {
+  //adds song
+  add(artist, album, track){
+    database.ref('artists/' + artist + '/' + album).push().set({
+      name: track,
+      artist: artist,
+      collection: album
+    });
+  }
+  //removes artists from database
+  remove(artist){
+    database.ref().child('artists/' + artist).remove();
+  }
+}
+
+var storeData = new StoreData();
+var processData = new ProcessData();
+
+storeData.getTopTen();
 var topten;
-let database = firebase.database();
+var database = firebase.database();
+
 
 //retrieves top ten songs
 app.get('/', function(req, res){
-  fetch("https://rss.itunes.apple.com/api/v1/us/apple-music/hot-tracks/all/10/explicit.json")
-  .then(res => {return res.json()})
-  .then(json => {
-    topten = json.feed.results;
-  })
   res.send(topten);
 })
 
+//get songs from artist's album
+app.get('/:artistID/:collection/', (req,res) => {
+  var ref = firebase.database().ref("artists/" + req.params.artistID);
+  ref.once("value")
+  .then((snapshot) => {
+    var album = snapshot.child(req.params.collection).val()
+    res.send(album);
+  });
+});
+
+
 // Add a new song with post request
-app.post("/:trackID/:collection/:artistID/", function (req, res) {
-	database.ref('artists/' + req.params.artistID + '/' + req.params.collection + '/' + 'songs/').set({
-		name: req.params.trackID,
-		artist: req.params.artistID,
-		collection: req.params.collection
-	});
+app.post("/:artistID/:collection/:trackID/", function (req, res) {
+  processData.add(req.params.artistID, req.params.collection, req.params.trackID);
+  res.send("Success");
+});
+
+//deletes artist from database
+app.delete("/:artistID", function (req, res) {
+  processData.remove(req.params.artistID);
 	res.send("Success");
 });
 
-// doesn't work yet
-app.delete("/:songname", function (req, res) {
-	firebase.database().ref().child('artists/' + req.params.songname).remove();
-	res.send("Success");
-});
-
-// Add a new song with post request
+// sets a new playlist with post request
 app.post("/:playlist", function (req, res) {
 	database.ref('playlists/' + req.params.playlist).set({
 		name: req.params.playlist
 	});
 	res.send("Success");
 });
+
 
 app.listen(process.env.PORT || 3000, function () {
 	console.log('App listening on port 3000!')
