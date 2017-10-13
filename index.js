@@ -96,7 +96,7 @@ app.delete("/artist/:artistID", function (req, res) {
 });
 
 // sets a new playlist with post request
-app.post("/:playlist", function (req, res) {
+app.post("/playlist/:playlist", function (req, res) {
 	database.ref('playlists/' + req.params.playlist).set({
 		name: req.params.playlist,
 		track: null,
@@ -106,15 +106,26 @@ app.post("/:playlist", function (req, res) {
 });
 
 //update playlist
-app.put("/:playlist/:trackID", (req,res) => {
+app.put("/playlist/:playlist/:trackID", (req,res) => {
   processData.updatePlay(req.params.playlist, req.params.trackID);
   res.send("Success");
 });
 
 //delete playlist
-app.delete("/:playlist", (req, res) => {
+app.delete("/playlist/:playlist", (req, res) => {
   database.ref().child("playlists/" + req.params.playlist).remove();
   res.send("Success");
+});
+
+app.post("/signup", (req,res) => {
+  firebase.auth().createUserWithEmailAndPassword("dewjay128@gmail.com", "wefoijwef").catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    res.send(errorCode);
+    // ...
+  })
+  return res.send("Success");
 });
 
 app.listen(process.env.PORT || 3000, function () {
