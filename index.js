@@ -20,7 +20,7 @@ firebase.initializeApp(config);
 
 
 class StoreData {
-  getTopTen(){
+  getTopTen(artist){
     fetch("https://rss.itunes.apple.com/api/v1/us/apple-music/hot-tracks/all/10/explicit.json")
     .then(res => {return res.json()})
     .then(json => {
@@ -57,10 +57,20 @@ storeData.getTopTen();
 var topten;
 var database = firebase.database();
 
-
 //retrieves top ten songs
-app.get('/', function(req, res){
+app.get('/topTen', function(req, res){
   res.send(topten);
+})
+
+//retrieves top ten songs from an artist
+app.get('/topTen/:artistID', function(req, res){
+	fetch(`https://itunes.apple.com/search?term=${req.params.artistID}&entity=musicTrack&limit=10`)
+    .then(res => {return res.json()})
+    .then(json => {
+      var topTenArtist = json.results;
+	  res.send(topTenArtist);
+    });
+    
 })
 
 //get songs from artist's album
