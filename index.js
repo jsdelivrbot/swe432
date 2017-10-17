@@ -39,14 +39,31 @@ class ProcessData {
     });
 	return true;
   }
+  
+  // Doesn't work
+  // Delete a song
+  deleteSong(artist, album, track) {
+	  database.ref('artists/' + artist + '/' + album + '/' + track).remove();
+	  return true;
+  }
+  
   //removes artists from database
   remove(artist){
     database.ref().child('artists/' + artist).remove();
   }
 
+  // Create a new empty playlist
+  createPlaylist(playlist) {
+	  database.ref('playlists/' + playlist).set({
+		name: playlist,
+		tracks: []
+	});
+  }
+  
+  // Add tracks to a playlist
   updatePlay(playlist, track){
-    var playref = database.ref().child("playlists/" + playlist);
-    playref.update({track:track, no:'5'});
+    var playref = database.ref().child("playlists/" + playlist + "/tracks/");
+    playref.push({songname : track});
   }
 }
 
@@ -57,12 +74,12 @@ storeData.getTopTen();
 var topten;
 var database = firebase.database();
 
-//retrieves top ten songs
+//retrieves top ten songs from all artists from itunes api
 app.get('/topTen', function(req, res){
   res.send(topten);
 })
 
-//retrieves top ten songs from an artist
+//retrieves top ten songs from an artist using itunes api
 app.get('/topTen/:artistID', function(req, res){
 	fetch(`https://itunes.apple.com/search?term=${req.params.artistID}&entity=musicTrack&limit=10`)
     .then(res => {return res.json()})
@@ -83,6 +100,16 @@ app.get('/:artistID/:collection/', (req,res) => {
   });
 });
 
+// Search for a song by giving a keyword
+app.get('/song/search/:keyword', (req, res) => {
+	fetch (`https://itunes.apple.com/search?term=${req.params.keyword}&entity=musicTrack&attribute=songTerm`)
+	.then(res => {return res.json()})
+    .then(json => {
+      var results = json.results;
+	  res.send(results);
+    });
+});
+
 //get songs from a playlist
 app.get('/:playlist', (req,res) => {
   var ref = firebase.database().ref("playlists/" + req.params.playlist);
@@ -99,7 +126,14 @@ app.post("/:artistID/:collection/:trackID/", function (req, res) {
 	  res.send("Success");
 });
 
-//deletes artist from database
+// Doesn't work
+// Delete a user created song with delete request
+app.delete("/:artistID/:collection/:trackID/", function (req, res) {
+  if (processData.deleteSong(req.params.artistID, req.params.collection, req.params.trackID))
+	  res.send("Success");
+});
+
+// deletes artist from database
 app.delete("/artist/:artistID", function (req, res) {
   processData.remove(req.params.artistID);
 	res.send("Success");
@@ -107,21 +141,17 @@ app.delete("/artist/:artistID", function (req, res) {
 
 // sets a new playlist with post request
 app.post("/playlist/:playlist", function (req, res) {
-	database.ref('playlists/' + req.params.playlist).set({
-		name: req.params.playlist,
-		track: null,
-		tracknum: 0
-	});
+	processData.createPlaylist(req.params.playlist);
 	res.send("Success");
 });
 
-//update playlist
+// update playlist by adding tracks to it
 app.put("/playlist/:playlist/:trackID", (req,res) => {
   processData.updatePlay(req.params.playlist, req.params.trackID);
   res.send("Success");
 });
 
-//delete playlist
+// delete playlist entirely
 app.delete("/playlist/:playlist", (req, res) => {
   database.ref().child("playlists/" + req.params.playlist).remove();
   res.send("Success");
