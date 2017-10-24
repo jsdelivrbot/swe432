@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>
-      Homepage
+      Login
     </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css" />
@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
   </head>
-  <body>
+  <body class = "main">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">SoundBit</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,37 +36,17 @@
     </nav>
 
 
-  <div class="jumbotron main">
-    <h1 class="title">Discovering New Music</h1>
+  <div class="login-page">
+  <div class="form">
+    <form class="login-form">
+      <input type="text" placeholder="username"/>
+      <input type="password" placeholder="password"/>
+	  <p class="message">Not registered yet? <br><a href="#">Create an account</a></p>
+      <button>login</button>
+      
+    </form>
   </div>
-
-  <section class = "sec right">
-    <h3>Find Music</h3>
-    <p>Discover new music from our top
-       charts or that are featured on
-       our site. Add music of your own
-       that the public can add.</p>
-
-  </section>
-  <section class = "sec">
-    <h3>Recommended</h3>
-    <p>Based off the music that you find,
-       we will introduce music to you
-       may enjoy along with links to
-       purchase songs to support your
-       favorite artists</p>
-  </section>
-  <section class = "sec left">
-    <h3>Personal Playlists</h3>
-    <p>Find music you enjoy and create
-       playlists of your favorite songs.
-       See what music other people are
-       listening to while sharing your own.
-  </section>
-
-  <div class="jumbotron footer">
-    <p>SoundBit</p>
-  </div>
+</div>
 
   </body>
 </html>
