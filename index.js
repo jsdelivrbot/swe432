@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 app.use(bodyParser.json());
-
+app.use(express.static('frontend'));
 const firebase = require('firebase');
 
 // Initialize Firebase
