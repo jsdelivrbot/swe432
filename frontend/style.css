@@ -26,27 +26,20 @@
   border-width: thin;
 }
 
-.footer {
-  margin-top: 300px;
-  background-color: black;
-  background-size: 100%;
-  color: #FFFFF0;
-}
-
 .login-page {
   height: 720px;
-  width: 420px;
+  width: 500px;
   padding: 8% 0 0;
   margin: auto;
 }
 .form {
   position: relative;
   z-index: 1;
-  background: #2f4f4f;
-  height: 360px;
-  max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
+  background: #fffff7;
+  height: 400px;
+  max-width: 700px;
+  margin: 40px auto 100px;
+  padding: 100px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -85,7 +78,7 @@
 }
 
 .form .message {
-  
+
   color: #a9a9a9;
   font-size: 16px;
   padding: 15px;
@@ -97,3 +90,29 @@
   padding: 15px;
 }
 
+.list-group {
+  width: 50%;
+  float: left;
+}
+
+.player {
+  float:left;
+  width: 50%;
+  background-size: 100%;
+}
+
+html, body {
+  height: 100%;
+}
+.playlist-name {
+  text-align: center;
+}
+.footer {
+  position: relative;
+  margin-top: -150px; /* negative value of footer height */
+  height: 150px;
+  clear:both;
+  padding-top:20px;
+  background-color: black;
+
+}
