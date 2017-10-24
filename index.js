@@ -1,9 +1,13 @@
 var express = require('express')
 var fetch = require('node-fetch');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+var path = require('path');
 
 var app = express();
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'frontend')));
+//app.use(express.static('/frontend'));
 
 const firebase = require('firebase');
 
@@ -74,6 +78,11 @@ storeData.getTopTen();
 var topten;
 var database = firebase.database();
 
+// Homepage
+app.get('/', function(req, res) {
+	res.sendFile(__dirname + '/frontend/Homepage.html');
+});
+
 //retrieves top ten songs from all artists from itunes api
 app.get('/topTen', function(req, res){
   res.send(topten);
@@ -111,7 +120,7 @@ app.get('/song/search/:keyword', (req, res) => {
 });
 
 //get songs from a playlist
-app.get('/:playlist', (req,res) => {
+app.get('/get/:playlist', (req,res) => {
   var ref = firebase.database().ref("playlists/" + req.params.playlist);
   ref.once("value")
   .then((snapshot) => {
@@ -166,6 +175,14 @@ app.post("/signup", (req,res) => {
     // ...
   })
   return res.send("Success");
+});
+
+app.get("/login", (req,res) => {
+  res.sendFile(__dirname + '/frontend/Login.html');
+});
+
+app.get("/Playlist", function (req,res) {
+  res.sendFile(__dirname + '/frontend/Playlist.html');
 });
 
 app.listen(process.env.PORT || 3000, function () {
