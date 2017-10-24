@@ -104,7 +104,7 @@
 html, body {
   height: 100%;
 }
-.playlist-name {
+#playlist-name {
   text-align: center;
 }
 .footer {
