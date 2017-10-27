@@ -167,14 +167,30 @@ app.delete("/playlist/:playlist", (req, res) => {
 });
 
 app.post("/signup", (req,res) => {
-  firebase.auth().createUserWithEmailAndPassword("dewjay128@gmail.com", "wefoijwef").catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    res.send(errorCode);
-    // ...
-  })
-  return res.send("Success");
+
+  firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log(error.message);
+  });
+
+  var user = firebase.auth().currentUser;
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      user.sendEmailVerification().then(function() {
+        return res.send("email is sentç")// Email sent.
+      }).catch(function(error) {
+      // An error happened.
+      });
+    } else {
+      // No user is signed in.
+    }
+  });
+
+  return res.send('done');
 });
 
 app.get("/login", (req,res) => {
