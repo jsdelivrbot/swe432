@@ -8,9 +8,7 @@ var app = express();
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'frontend')));
-//app.use(express.static('/frontend'));
 
->>>>>>> a84d14fd787fe7d1af1f592a1109d9b145116277
 const firebase = require('firebase');
 
 // Initialize Firebase
