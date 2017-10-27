@@ -1,10 +1,16 @@
 var express = require('express')
 var fetch = require('node-fetch');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+var path = require('path');
 
 var app = express();
 app.use(bodyParser.json());
-app.use(express.static('frontend'));
+
+app.use(express.static(path.join(__dirname, 'frontend')));
+//app.use(express.static('/frontend'));
+
+>>>>>>> a84d14fd787fe7d1af1f592a1109d9b145116277
 const firebase = require('firebase');
 
 // Initialize Firebase
@@ -39,14 +45,14 @@ class ProcessData {
     });
 	return true;
   }
-  
+
   // Doesn't work
   // Delete a song
   deleteSong(artist, album, track) {
 	  database.ref('artists/' + artist + '/' + album + '/' + track).remove();
 	  return true;
   }
-  
+
   //removes artists from database
   remove(artist){
     database.ref().child('artists/' + artist).remove();
@@ -59,7 +65,7 @@ class ProcessData {
 		tracks: []
 	});
   }
-  
+
   // Add tracks to a playlist
   updatePlay(playlist, track){
     var playref = database.ref().child("playlists/" + playlist + "/tracks/");
@@ -74,6 +80,11 @@ storeData.getTopTen();
 var topten;
 var database = firebase.database();
 
+// Homepage
+app.get('/', function(req, res) {
+	res.sendFile(__dirname + '/frontend/Homepage.html');
+});
+
 //retrieves top ten songs from all artists from itunes api
 app.get('/topTen', function(req, res){
   res.send(topten);
@@ -87,7 +98,7 @@ app.get('/topTen/:artistID', function(req, res){
       var topTenArtist = json.results;
 	  res.send(topTenArtist);
     });
-    
+
 })
 
 //get songs from artist's album
@@ -111,7 +122,7 @@ app.get('/song/search/:keyword', (req, res) => {
 });
 
 //get songs from a playlist
-app.get('/:playlist', (req,res) => {
+app.get('/get/:playlist', (req,res) => {
   var ref = firebase.database().ref("playlists/" + req.params.playlist);
   ref.once("value")
   .then((snapshot) => {
@@ -166,6 +177,14 @@ app.post("/signup", (req,res) => {
     // ...
   })
   return res.send("Success");
+});
+
+app.get("/login", (req,res) => {
+  res.sendFile(__dirname + '/frontend/Login.html');
+});
+
+app.get("/Playlist", function (req,res) {
+  res.sendFile(__dirname + '/frontend/Playlist.html');
 });
 
 app.listen(process.env.PORT || 3000, function () {
