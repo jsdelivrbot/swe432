@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Home from './Home.js';
 import Login from './Login.js';
 import Playlist from './Playlist.js';
+import TopSongs from './TopSongs.js';
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,8 @@ class App extends Component {
       return (<Login handleToolbarClick={this.handleToolbarClick}/>);
     } else if(page === "Playlist") {
       return (<Playlist handleToolbarClick={this.handleToolbarClick}/>);
+    } else if(page === "TopSongs") {
+      return (<TopSongs handleToolbarClick={this.handleToolbarClick}/>);
     }
 
   }

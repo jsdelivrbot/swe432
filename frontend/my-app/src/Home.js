@@ -40,7 +40,7 @@ class Home extends Component {
                   <a className="nav-link" id="Playlist" onClick={this.onToolbarClick}>Explore</a>
                 </li>
                 <li className="nav-item ad">
-                  <a className="nav-link" id="TopSongs">Top Songs</a>
+                  <a className="nav-link" id="TopSongs" onClick={this.onToolbarClick}>Top Songs</a>
                 </li>
       		  <li className="nav-item ad">
                   <a className="nav-link" id="Login" onClick={this.onToolbarClick}>Login</a>

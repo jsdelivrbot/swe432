@@ -41,7 +41,7 @@ class Login extends Component {
                   <a class="nav-link" id="Playlist" onClick={this.onToolbarClick}>Explore</a>
                 </li>
                 <li class="nav-item ad">
-                  <a class="nav-link" id="TopSongs">Top Songs</a>
+                  <a class="nav-link" id="TopSongs" onClick={this.onToolbarClick}>Top Songs</a>
                 </li>
       		  <li class="nav-item ad">
                   <a class="nav-link">Login</a>

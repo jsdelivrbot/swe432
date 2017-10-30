@@ -85,6 +85,7 @@ app.get('/', function(req, res) {
 
 //retrieves top ten songs from all artists from itunes api
 app.get('/topTen', function(req, res){
+  res.header("Access-Control-Allow-Origin", "*");
   res.send(topten);
 })
 
