@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Login extends Component {
+class Playlist extends Component {
   constructor(props) {
     super(props);
     this.onToolbarClick = this.onToolbarClick.bind(this);
@@ -11,13 +11,12 @@ class Login extends Component {
     this.props.handleToolbarClick(event.target.id);
   }
 
-
   render() {
     return (
       <html>
         <head>
           <title>
-            Login
+            Playlist
           </title>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/>
           <link rel="stylesheet" type="text/css" href="style.css" />
@@ -25,7 +24,7 @@ class Login extends Component {
           <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"/>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"/>
         </head>
-        <body class = "main">
+        <body>
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand">SoundBit</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,33 +34,42 @@ class Login extends Component {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" id="Home" onClick={this.onToolbarClick}>Home<span className="sr-only">(current)</span></a>
+                  <a class="nav-link" id="Home" onClick={this.onToolbarClick}>Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item ad ">
-                  <a class="nav-link" id="Playlist" onClick={this.onToolbarClick}>Explore</a>
+                  <a class="nav-link" id="Playlist">Explore</a>
                 </li>
                 <li class="nav-item ad">
                   <a class="nav-link" id="TopSongs">Top Songs</a>
                 </li>
       		  <li class="nav-item ad">
-                  <a class="nav-link">Login</a>
+                  <a class="nav-link" id="Login" onClick={this.onToolbarClick}>Login</a>
                 </li>
               </ul>
             </div>
           </nav>
 
+          <div id="playlist-name">
+            <p>Playlist 1</p>
+          </div>
 
-        <div class="login-page">
-        <div class="form">
-          <form class="login-form">
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-      	  <p class="message">Not registered yet? <br/><a href="#">Create an account</a></p>
-            <button>login</button>
-
-          </form>
-        </div>
+          <div class="list-group">
+        <button type="button" class="list-group-item">1. Cold Wind Blows</button>
+        <button type="button" class="list-group-item">2. Talkin' 2 Myself</button>
+        <button type="button" class="list-group-item">3. On Fire</button>
+        <button type="button" class="list-group-item">4. Won't Back Down</button>
+        <button type="button" class="list-group-item">5. W.T.P.</button>
+        <button type="button" class="list-group-item">6. Going Through Changes</button>
+        <button type="button" class="list-group-item">7. Not Afraid</button>
+        <button type="button" class="list-group-item">8. Seduction</button>
+        <button type="button" class="list-group-item">9. No Love</button>
+        <button type="button" class="list-group-item">10. Space Bound</button>
       </div>
+
+      <div class="jumbotron player">
+        <img src="eminem.jpeg"/>
+      </div>
+
 
       <footer class="footer">
             <div class="container">
@@ -75,4 +83,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Playlist;

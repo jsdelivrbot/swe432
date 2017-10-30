@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Home from './Home.js';
 import Login from './Login.js';
+import Playlist from './Playlist.js';
 
 class App extends Component {
   constructor(props) {
@@ -9,17 +10,20 @@ class App extends Component {
     this.handleToolbarClick = this.handleToolbarClick.bind(this);
   }
 
-  // Handles toolbar clicks
+  // Handles toolbar clickhandleToolbarClick={this.handleToolbarClick}ks
   handleToolbarClick(newPage) {
     this.setState( {currentPage : newPage} );
   }
 
   render() {
     let page = this.state.currentPage;
+    console.log(this.state.currentPage);
     if(page === "Home") {
       return (<Home handleToolbarClick={this.handleToolbarClick}/>);
     } else if(page === "Login") {
-      return (<Login />);
+      return (<Login handleToolbarClick={this.handleToolbarClick}/>);
+    } else if(page === "Playlist") {
+      return (<Playlist handleToolbarClick={this.handleToolbarClick}/>);
     }
 
   }
