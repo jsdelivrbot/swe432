@@ -1,28 +1,115 @@
-.App {
+.main {
+  text-align: center;
+  height: 500px;
+  background-image: url("guitarist.jpg");
+  background-repeat: repeat-y;
+  background-size: 100%;
+}
+.title {
+  color: #FFFFF0;
+}
+.block {
+  width: 60%;
+}
+.sec {
+  float: left;
+  width: 33%;
   text-align: center;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.left {
+  border-left-style: solid;
+  border-width: thin;
+}
+.right {
+  border-right-style: solid;
+  border-width: thin;
 }
 
-.App-header {
-  background-color: #222;
+.login-page {
+  height: 720px;
+  width: 500px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #fffff7;
+  height: 400px;
+  max-width: 700px;
+  margin: 40px auto 100px;
+  padding: 100px;
+  text-align: center;
+}
+.form input {
+  font-family: sans-serif;
+  outline: 0;
+  background: #a9a9a9;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #20b2aa;
+  width: 100%;
+  border: 2px solid #00ffff;
+  border-radius: 2px;
+  padding: 15px 20px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+}
+.form button:hover {
+  background: #dfdfdf;
+}
+
+.form button:active {
+  background-color: #20b2aa;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.form .message {
+
+  color: #a9a9a9;
+  font-size: 16px;
+  padding: 15px;
+}
+.form .message a {
+  margin: 15px 0 0;
+  color: #20b2aa;
+  text-decoration: none;
+  padding: 15px;
+}
+.list-group {
+  width: 50%;
+  float: left;
+}
+
+.player {
+  float:left;
+  width: 50%;
+  background-size: 100%;
+}
+
+html, body {
+  height: 100%;
+}
+#playlist-name {
+  text-align: center;
+}
+.footer {
+  position: relative;
+  margin-top: -150px; /* negative value of footer height */
   height: 150px;
-  padding: 20px;
-  color: white;
-}
+  clear:both;
+  padding-top:20px;
+  background-color: black;
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
