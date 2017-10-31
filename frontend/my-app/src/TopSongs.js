@@ -4,25 +4,37 @@ class TopSongs extends Component {
   constructor(props) {
     super(props);
     this.onToolbarClick = this.onToolbarClick.bind(this);
-    this.state = {songs : 'test'};
+    this.state = {track1 : '',
+                  track2 : '',
+                  track3 : '',
+                  track4 : '',
+                  track5 : '',
+                  track6 : '',
+                  track7 : '',
+                  track8 : '',
+                  track9 : '',
+                  track10: ''};
   }
   onToolbarClick(event) {
     event.preventDefault();
-    console.log(event.target);
     this.props.handleToolbarClick(event.target.id);
   }
   componentDidMount() {
+      let state = this.state;
       return fetch("http://localhost:3000/topten")
           .then(res => {return res.json()})
           .then(json => {
-            this.setState({ songs : json});
-			console.log(JSON.stringify(json[4].name));
-          });
+            for(let i = 0; i < 10; i++) {
+              state[`track${i+1}`] = json[i];
+            }
+            this.setState(state);
+          }
+        );
+
 
     }
 
   render() {
-
     return (
 	<html>
         <head>
@@ -60,20 +72,20 @@ class TopSongs extends Component {
             </div>
           </nav>
 
-          
-
           <div class="topten">TOP TEN SONGS:
+
 				<ol>
-					<li>{JSON.stringify(this.state.songs[0])}</li>
-					<li>{JSON.stringify(this.state.songs[1])}</li>
-					<li>{JSON.stringify(this.state.songs[2])}</li>
-					<li>{JSON.stringify(this.state.songs[3])}</li>
-					<li>{JSON.stringify(this.state.songs[4])}</li>
-					<li>{JSON.stringify(this.state.songs[5])}</li>
-					<li>{JSON.stringify(this.state.songs[6])}</li>
-					<li>{JSON.stringify(this.state.songs[7])}</li>
-					<li>{JSON.stringify(this.state.songs[8])}</li>
-					<li>{JSON.stringify(this.state.songs[9])}</li>
+					<li>{JSON.stringify(this.state.track1.name)}</li>
+          <li>{JSON.stringify(this.state.track2.name)}</li>
+          <li>{JSON.stringify(this.state.track3.name)}</li>
+          <li>{JSON.stringify(this.state.track4.name)}</li>
+          <li>{JSON.stringify(this.state.track5.name)}</li>
+          <li>{JSON.stringify(this.state.track6.name)}</li>
+          <li>{JSON.stringify(this.state.track7.name)}</li>
+          <li>{JSON.stringify(this.state.track8.name)}</li>
+          <li>{JSON.stringify(this.state.track9.name)}</li>
+          <li>{JSON.stringify(this.state.track10.name)}</li>
+
 				</ol>
 			</div>
 
