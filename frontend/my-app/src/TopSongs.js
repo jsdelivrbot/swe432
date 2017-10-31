@@ -3,9 +3,14 @@ import React, { Component } from 'react';
 class TopSongs extends Component {
   constructor(props) {
     super(props);
+    this.onToolbarClick = this.onToolbarClick.bind(this);
     this.state = {songs : 'test'};
   }
-
+  onToolbarClick(event) {
+    event.preventDefault();
+    console.log(event.target);
+    this.props.handleToolbarClick(event.target.id);
+  }
   componentDidMount() {
       return fetch("http://localhost:3000/topten")
           .then(res => {return res.json()})
@@ -22,7 +27,7 @@ class TopSongs extends Component {
 	<html>
         <head>
           <title>
-            Playlist
+            Top Ten
           </title>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/>
           <link rel="stylesheet" type="text/css" href="style.css" />
@@ -43,7 +48,7 @@ class TopSongs extends Component {
                   <a class="nav-link" id="Home" onClick={this.onToolbarClick}>Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item ad ">
-                  <a class="nav-link" id="Playlist">Explore</a>
+                  <a class="nav-link" id="Playlist" onClick={this.onToolbarClick}>Explore</a>
                 </li>
                 <li class="nav-item ad">
                   <a class="nav-link" id="TopSongs" onClick={this.onToolbarClick}>Top Songs</a>

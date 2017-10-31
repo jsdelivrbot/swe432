@@ -37,7 +37,7 @@ class Playlist extends Component {
                   <a class="nav-link" id="Home" onClick={this.onToolbarClick}>Home<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item ad ">
-                  <a class="nav-link" id="Playlist">Explore</a>
+                  <a class="nav-link" id="Playlist" onClick={this.onToolbarClick}>Explore</a>
                 </li>
                 <li class="nav-item ad">
                   <a class="nav-link" id="TopSongs" onClick={this.onToolbarClick}>Top Songs</a>
