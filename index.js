@@ -7,7 +7,7 @@ var path = require('path');
 var app = express();
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, 'frontend')));
+//app.use(express.static(path.join(__dirname, 'frontend')));
 
 const firebase = require('firebase');
 
@@ -208,6 +208,6 @@ app.get("/Playlist", function (req,res) {
 });
 */
 
-app.listen(process.env.PORT || 3000, function () {
-	console.log('App listening on port 3000!')
+app.listen(process.env.PORT || 3001, function () {
+	console.log('App listening on port 3001!')
 });
