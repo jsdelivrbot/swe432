@@ -26,9 +26,10 @@ class CreateAccount extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     // get our form data out of state
+	alert('Account Created');
     const { email, password } = this.state;
 
-      fetch('http://localhost:3000/signup', {
+      fetch('http://localhost:3001/signup', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -70,6 +71,9 @@ class CreateAccount extends Component {
                 </li>
                 <li class="nav-item ad ">
                   <a class="nav-link" id="Playlist" onClick={this.onToolbarClick}>Explore</a>
+                </li>
+				<li class="nav-item ad ">
+                  <a class="nav-link" id="CreatePlaylist" onClick={this.onToolbarClick}>Create Playlist</a>
                 </li>
                 <li class="nav-item ad">
                   <a class="nav-link" id="TopSongs" onClick={this.onToolbarClick}>Top Songs</a>

@@ -1,26 +1,53 @@
 import React, { Component } from 'react';
 
-class Login extends Component {
+class CreatePlaylist extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      name: ''
+    };
     this.onToolbarClick = this.onToolbarClick.bind(this);
-    this.onLoginClick = this.onLoginClick.bind(this);
   }
   onToolbarClick(event) {
     event.preventDefault();
     console.log(event.target);
     this.props.handleToolbarClick(event.target.id);
   }
-  onLoginClick(event){
-    this.props.handleToolbarClick(event.target.id);
+
+  onChange = (e) => {
+    // Because we named the inputs to match their corresponding values in state, it's
+    // super easy to update the state
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState(state);
   }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    // get our form data out of state
+    const { name } = this.state;
+	alert(`Playlist has been created!`);
+
+      fetch(`http://localhost:3001/playlist/${name}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({
+        name : name
+      })
+    })
+  }
+
 
   render() {
     return (
       <html>
         <head>
           <title>
-            Login
+            Create Playlist
           </title>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/>
           <link rel="stylesheet" type="text/css" href="style.css" />
@@ -28,7 +55,7 @@ class Login extends Component {
           <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"/>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"/>
         </head>
-        <body class = "main">
+        <body>
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand">SoundBit</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +77,7 @@ class Login extends Component {
                   <a class="nav-link" id="TopSongs" onClick={this.onToolbarClick}>Top Songs</a>
                 </li>
       		  <li class="nav-item ad">
-                  <a class="nav-link">Login</a>
+                  <a class="nav-link" id="Login" onClick={this.onToolbarClick}>Login</a>
                 </li>
               </ul>
             </div>
@@ -59,11 +86,10 @@ class Login extends Component {
 
         <div class="login-page">
         <div class="form">
-          <form class="login-form">
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-      	  <p class="message">Not registered yet? <br/><a id="CreateAccount" onClick={this.onLoginClick}>Create an account</a></p>
-            <button>login</button>
+			Create a Playlist
+          <form class="login-form" onSubmit={this.onSubmit}>
+            <input type="text" id="name" placeholder="name" value ={this.state.value} onChange={this.onChange}/>
+            <button type="submit">Create Playlist</button>
 
           </form>
         </div>
@@ -81,4 +107,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default CreatePlaylist;
