@@ -1,43 +1,54 @@
 import React, { Component } from 'react';
 
-class TopSongs extends Component {
+class CreateAccount extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
     this.onToolbarClick = this.onToolbarClick.bind(this);
-    this.state = {track1 : '',
-                  track2 : '',
-                  track3 : '',
-                  track4 : '',
-                  track5 : '',
-                  track6 : '',
-                  track7 : '',
-                  track8 : '',
-                  track9 : '',
-                  track10: ''};
   }
   onToolbarClick(event) {
     event.preventDefault();
+    console.log(event.target);
     this.props.handleToolbarClick(event.target.id);
   }
-  componentDidMount() {
-      let state = this.state;
-      return fetch("http://localhost:3000/topten")
-          .then(res => {return res.json()})
-          .then(json => {
-            for(let i = 0; i < 10; i++) {
-              state[`track${i+1}`] = json[i];
-            }
-            this.setState(state);
-          }
-        );
-    }
+
+  onChange = (e) => {
+    // Because we named the inputs to match their corresponding values in state, it's
+    // super easy to update the state
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    // get our form data out of state
+    const { email, password } = this.state;
+
+      fetch('http://localhost:3000/signup', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      })
+    })
+  }
+
 
   render() {
     return (
-	<html>
+      <html>
         <head>
           <title>
-            Top Ten
+            Login
           </title>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/>
           <link rel="stylesheet" type="text/css" href="style.css" />
@@ -45,7 +56,7 @@ class TopSongs extends Component {
           <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"/>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"/>
         </head>
-        <body>
+        <body class = "main">
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand">SoundBit</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +66,7 @@ class TopSongs extends Component {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" id="Home" onClick={this.onToolbarClick}>Home<span class="sr-only">(current)</span></a>
+                  <a class="nav-link" id="Home" onClick={this.onToolbarClick}>Home<span className="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item ad ">
                   <a class="nav-link" id="Playlist" onClick={this.onToolbarClick}>Explore</a>
@@ -70,23 +81,17 @@ class TopSongs extends Component {
             </div>
           </nav>
 
-          <div class="topten">TOP TEN SONGS:
 
-				<ol>
-					<li>{JSON.stringify(this.state.track1.name)}</li>
-          <li>{JSON.stringify(this.state.track2.name)}</li>
-          <li>{JSON.stringify(this.state.track3.name)}</li>
-          <li>{JSON.stringify(this.state.track4.name)}</li>
-          <li>{JSON.stringify(this.state.track5.name)}</li>
-          <li>{JSON.stringify(this.state.track6.name)}</li>
-          <li>{JSON.stringify(this.state.track7.name)}</li>
-          <li>{JSON.stringify(this.state.track8.name)}</li>
-          <li>{JSON.stringify(this.state.track9.name)}</li>
-          <li>{JSON.stringify(this.state.track10.name)}</li>
+        <div class="login-page">
+        <div class="form">
+          <form class="login-form" onSubmit={this.onSubmit}>
+            <input type="text" id="email" placeholder="email" onChange={this.onChange}/>
+            <input type="password" id="password" placeholder="password" onChange={this.onChange}/>
+            <button type="submit">Create</button>
 
-				</ol>
-			</div>
-
+          </form>
+        </div>
+      </div>
 
       <footer class="footer">
             <div class="container">
@@ -96,9 +101,8 @@ class TopSongs extends Component {
 
         </body>
       </html>
-			);
+    );
   }
-
 }
 
-export default TopSongs;
+export default CreateAccount;

@@ -3,6 +3,7 @@ import Home from './Home.js';
 import Login from './Login.js';
 import Playlist from './Playlist.js';
 import TopSongs from './TopSongs.js';
+import CreateAccount from './CreateAccount.js';
 
 class App extends Component {
   constructor(props) {
@@ -27,6 +28,8 @@ class App extends Component {
       return (<Playlist handleToolbarClick={this.handleToolbarClick}/>);
     } else if(page === "TopSongs") {
       return (<TopSongs handleToolbarClick={this.handleToolbarClick}/>);
+    } else if(page === "CreateAccount") {
+      return (<CreateAccount handleToolbarClick={this.handleToolbarClick}/>);
     }
 
   }

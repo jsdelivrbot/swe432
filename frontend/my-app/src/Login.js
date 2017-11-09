@@ -4,13 +4,16 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.onToolbarClick = this.onToolbarClick.bind(this);
+    this.onLoginClick = this.onLoginClick.bind(this);
   }
   onToolbarClick(event) {
     event.preventDefault();
     console.log(event.target);
     this.props.handleToolbarClick(event.target.id);
   }
-
+  onLoginClick(event){
+    this.props.handleToolbarClick(event.target.id);
+  }
 
   render() {
     return (
@@ -56,7 +59,7 @@ class Login extends Component {
           <form class="login-form">
             <input type="text" placeholder="username"/>
             <input type="password" placeholder="password"/>
-      	  <p class="message">Not registered yet? <br/><a href="#">Create an account</a></p>
+      	  <p class="message">Not registered yet? <br/><a id="CreateAccount" onClick={this.onLoginClick}>Create an account</a></p>
             <button>login</button>
 
           </form>

@@ -78,10 +78,12 @@ storeData.getTopTen();
 var topten;
 var database = firebase.database();
 
+/*
 // Homepage
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/frontend/Homepage.html');
 });
+*/
 
 //retrieves top ten songs from all artists from itunes api
 app.get('/topTen', function(req, res){
@@ -168,7 +170,9 @@ app.delete("/playlist/:playlist", (req, res) => {
 });
 
 app.post("/signup", (req,res) => {
-
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
   firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
@@ -194,6 +198,7 @@ app.post("/signup", (req,res) => {
   return res.send('done');
 });
 
+/*
 app.get("/login", (req,res) => {
   res.sendFile(__dirname + '/frontend/Login.html');
 });
@@ -201,6 +206,7 @@ app.get("/login", (req,res) => {
 app.get("/Playlist", function (req,res) {
   res.sendFile(__dirname + '/frontend/Playlist.html');
 });
+*/
 
 app.listen(process.env.PORT || 3000, function () {
 	console.log('App listening on port 3000!')
