@@ -16,7 +16,6 @@ class CreateAccount extends Component {
   }
 
   onChange = (e) => {
-    // Because we named the inputs to match their corresponding values in state, it's
     // super easy to update the state
     const state = this.state
     state[e.target.name] = e.target.value;
@@ -26,10 +25,10 @@ class CreateAccount extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     // get our form data out of state
-	alert('Account Created');
+	  alert('Account Created');
     const { email, password } = this.state;
 
-      fetch('http://localhost:3001/signup', {
+      fetch('/signup', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

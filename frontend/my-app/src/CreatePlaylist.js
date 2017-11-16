@@ -28,7 +28,7 @@ class CreatePlaylist extends Component {
     const { name } = this.state;
 	alert(`Playlist has been created!`);
 
-      fetch(`http://localhost:3001/playlist/${name}`, {
+      fetch(`/playlist/${name}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
