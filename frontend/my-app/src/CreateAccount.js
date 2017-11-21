@@ -41,6 +41,7 @@ class CreateAccount extends Component {
       })
     })
   }
+  
 
 
   render() {
@@ -88,8 +89,8 @@ class CreateAccount extends Component {
         <div class="login-page">
         <div class="form">
           <form class="login-form" onSubmit={this.onSubmit}>
-            <input type="text" id="email" placeholder="email" onChange={this.onChange}/>
-            <input type="password" id="password" placeholder="password" onChange={this.onChange}/>
+            <input type="text" id="email" placeholder="email" onChange={this.onChange} required/>
+            <input type="password" id="password" placeholder="password" onChange={this.onChange} required/>
             <button type="submit">Create</button>
 
           </form>

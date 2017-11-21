@@ -18,6 +18,7 @@ class TopSongs extends Component {
   onToolbarClick(event) {
     event.preventDefault();
     this.props.handleToolbarClick(event.target.id);
+	this.setState({value: 2})
   }
   componentDidMount() {
       let state = this.state;

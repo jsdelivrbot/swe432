@@ -9,6 +9,7 @@ class Home extends Component {
     event.preventDefault();
     console.log(event.target);
     this.props.handleToolbarClick(event.target.id);
+	this.setState({value: 1})
   }
 
   render() {
@@ -51,6 +52,23 @@ class Home extends Component {
               </ul>
             </div>
           </nav>
+		  <nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="nav-item active"><a href="#">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Home <span class="caret"></span></a>
+        </li>
+        <li class="nav-item ad "><a href="#">Explore</a></li>
+        <li class="nav-item ad "><a href="#">Create Playlist</a></li>
+		<li class="nav-item ad "><a href="#">Top Songs</a></li>
+		<li class="nav-item ad "><a href="#">Login</a></li>
+      </ul>
+    </div>
+
+</nav>
 
 
         <div className="jumbotron main">

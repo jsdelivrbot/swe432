@@ -25,6 +25,10 @@
   border-width: thin;
 }
 
+.nav-link {
+	cursor: pointer;
+}
+
 .login-page {
   height: 720px;
   width: 500px;
@@ -77,13 +81,18 @@
 
 .form .message {
 
-  color: #a9a9a9;
+  color: #33E0FF;
   font-size: 16px;
   padding: 15px;
+  cursor: pointer;
+}
+
+.form .message:hover {
+  color: #FF0000;
 }
 .form .message a {
   margin: 15px 0 0;
-  color: #20b2aa;
+  color: #FF0000;
   text-decoration: none;
   padding: 15px;
 }
