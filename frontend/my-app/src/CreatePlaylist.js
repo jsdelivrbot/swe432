@@ -55,7 +55,7 @@ class CreatePlaylist extends Component {
           <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"/>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"/>
         </head>
-        <body>
+        <body class="main">
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand">SoundBit</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,7 +88,7 @@ class CreatePlaylist extends Component {
         <div class="form">
 			Create a Playlist
           <form class="login-form" onSubmit={this.onSubmit}>
-            <input type="text" id="name" placeholder="name" value ={this.state.value} onChange={this.onChange}/>
+            <input type="text" id="name" placeholder="name" required value ={this.state.value} onChange={this.onChange}/>
             <button type="submit">Create Playlist</button>
 
           </form>
