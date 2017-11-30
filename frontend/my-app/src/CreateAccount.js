@@ -23,9 +23,10 @@ class CreateAccount extends Component {
   }
 
   onSubmit = (e) => {
+	alert('Account Created! You are now logged in!');
     e.preventDefault();
     // get our form data out of state
-	  alert('Account Created');
+	  
     const { email, password } = this.state;
 
       fetch('/signup', {
@@ -40,6 +41,9 @@ class CreateAccount extends Component {
         password: password,
       })
     })
+  }
+  onLoginClick(event){
+	alert('Account Created! You are now logged in!');
   }
   
 
@@ -59,14 +63,14 @@ class CreateAccount extends Component {
         </head>
         <body class = "main">
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand">SoundBit</a>
+            <a class="navbar-brand" id="Home" onClick={this.onToolbarClick}>SoundBit</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item ad">
                   <a class="nav-link" id="Home" onClick={this.onToolbarClick}>Home<span className="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item ad ">
@@ -78,8 +82,8 @@ class CreateAccount extends Component {
                 <li class="nav-item ad">
                   <a class="nav-link" id="TopSongs" onClick={this.onToolbarClick}>Top Songs</a>
                 </li>
-      		  <li class="nav-item ad">
-                  <a class="nav-link" id="Login" onClick={this.onToolbarClick}>Login</a>
+      		  <li class="nav-item active">
+                  <a class="nav-link" id="Login" onClick={this.onToolbarClick}>Login<span className="sr-only">(current)</span></a>
                 </li>
               </ul>
             </div>
@@ -87,11 +91,11 @@ class CreateAccount extends Component {
 
 
         <div class="login-page">
-        <div class="form">
-          <form class="login-form" onSubmit={this.onSubmit}>
-            <input type="text" id="email" placeholder="email" onChange={this.onChange} required/>
-            <input type="password" id="password" placeholder="password" onChange={this.onChange} required/>
-            <button type="submit">Create</button>
+        <div class="form" onSubmit={this.onSubmit}>
+          <form class="login-form">
+            <input type="text" id="email" placeholder="email" required/>
+            <input type="password" id="password" placeholder="password" required/>
+            <button>Create Account</button>
 
           </form>
         </div>

@@ -28,7 +28,7 @@ class Home extends Component {
         <body>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
 		  <div class="navbar-header">
-            <a className="navbar-brand">SoundBit</a>
+            <a className="navbar-brand" id="Home" onClick={this.onToolbarClick}>SoundBit</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>

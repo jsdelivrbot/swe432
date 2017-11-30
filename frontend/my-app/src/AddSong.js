@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 
-class Playlist extends Component {
+class AddSong extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      name: ''
+    };
     this.onToolbarClick = this.onToolbarClick.bind(this);
   }
   onToolbarClick(event) {
@@ -11,12 +14,40 @@ class Playlist extends Component {
     this.props.handleToolbarClick(event.target.id);
   }
 
+  onChange = (e) => {
+    // Because we named the inputs to match their corresponding values in state, it's
+    // super easy to update the state
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    // get our form data out of state
+    const { name } = this.state;
+	alert(`Playlist has been created!`);
+
+      fetch(`/playlist/${name}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({
+        name : name
+      })
+    })
+  }
+
+
   render() {
     return (
       <html>
         <head>
           <title>
-            Playlist
+            Create Playlist
           </title>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/>
           <link rel="stylesheet" type="text/css" href="style.css" />
@@ -34,13 +65,13 @@ class Playlist extends Component {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item ad">
-                  <a class="nav-link" id="Home" onClick={this.onToolbarClick}>Home</a>
+                  <a class="nav-link" id="Home" onClick={this.onToolbarClick}>Home<span className="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active ">
-                  <a class="nav-link" id="Playlist" onClick={this.onToolbarClick}>Explore<span className="sr-only">(current)</span></a>
+                <li class="nav-item ad ">
+                  <a class="nav-link" id="Playlist" onClick={this.onToolbarClick}>Explore</a>
                 </li>
-				<li class="nav-item ad">
-                  <a class="nav-link" id="CreatePlaylist" onClick={this.onToolbarClick}>Create Playlist</a>
+				<li class="nav-item active ">
+                  <a class="nav-link" id="CreatePlaylist" onClick={this.onToolbarClick}>Create Playlist<span className="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item ad">
                   <a class="nav-link" id="TopSongs" onClick={this.onToolbarClick}>Top Songs</a>
@@ -52,27 +83,18 @@ class Playlist extends Component {
             </div>
           </nav>
 
-          <div id="playlist-name">
-            <p>Playlist 1</p>
-          </div>
 
-          <div class="list-group">
-        <button type="button" class="list-group-item">1. Cold Wind Blows</button>
-        <button type="button" class="list-group-item">2. Talkin' 2 Myself</button>
-        <button type="button" class="list-group-item">3. On Fire</button>
-        <button type="button" class="list-group-item">4. Won't Back Down</button>
-        <button type="button" class="list-group-item">5. W.T.P.</button>
-        <button type="button" class="list-group-item">6. Going Through Changes</button>
-        <button type="button" class="list-group-item">7. Not Afraid</button>
-        <button type="button" class="list-group-item">8. Seduction</button>
-        <button type="button" class="list-group-item">9. No Love</button>
-        <button type="button" class="list-group-item">10. Space Bound</button>
+        <div class="login-page">
+        <div class="form">
+			Create a Playlist
+          <form class="login-form" onSubmit={this.onSubmit}>
+            <input type="text" id="songname" placeholder="Song name" required value ={this.state.value} onChange={this.onChange}/>
+            <button type="submit">Add Song</button>
+			<button type="submit">Finish</button>
+
+          </form>
+        </div>
       </div>
-
-      <div class="jumbotron player">
-        <img src="eminem.jpeg"/>
-      </div>
-
 
       <footer class="footer">
             <div class="container">
@@ -86,4 +108,4 @@ class Playlist extends Component {
   }
 }
 
-export default Playlist;
+export default AddSong;

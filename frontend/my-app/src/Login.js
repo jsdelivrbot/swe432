@@ -14,6 +14,9 @@ class Login extends Component {
   onLoginClick(event){
     this.props.handleToolbarClick(event.target.id);
   }
+  onSubmit = (e) => {
+	alert('You are now logged in!');
+  }
 
   render() {
     return (
@@ -30,15 +33,15 @@ class Login extends Component {
         </head>
         <body class = "main">
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand">SoundBit</a>
+            <a class="navbar-brand" id="Home" onClick={this.onToolbarClick}>SoundBit</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" id="Home" onClick={this.onToolbarClick}>Home<span className="sr-only">(current)</span></a>
+                <li class="nav-item ad">
+                  <a class="nav-link" id="Home" onClick={this.onToolbarClick}>Home</a>
                 </li>
                 <li class="nav-item ad ">
                   <a class="nav-link" id="Playlist" onClick={this.onToolbarClick}>Explore</a>
@@ -49,8 +52,8 @@ class Login extends Component {
                 <li class="nav-item ad">
                   <a class="nav-link" id="TopSongs" onClick={this.onToolbarClick}>Top Songs</a>
                 </li>
-      		  <li class="nav-item ad">
-                  <a class="nav-link">Login</a>
+      		  <li class="nav-item active">
+                  <a class="nav-link">Login<span className="sr-only">(current)</span></a>
                 </li>
               </ul>
             </div>
@@ -58,7 +61,7 @@ class Login extends Component {
 
 
         <div class="login-page">
-        <div class="form">
+        <div class="form" onSubmit={this.onSubmit}>
           <form class="login-form">
             <input type="text" placeholder="username" required/>
             <input type="password" placeholder="password" required/>
